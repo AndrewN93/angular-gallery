@@ -7,10 +7,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { GalleryModule } from './gallery/gallery.module';
 import { RouterModule } from '@angular/router';
 import { SpinnerModule } from './shared/spinner/spinner.module';
+import { CoreModule } from './core/typings/core.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -19,6 +20,7 @@ import { SpinnerModule } from './shared/spinner/spinner.module';
     AppRoutingModule,
     GalleryModule,
     SpinnerModule,
+    CoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

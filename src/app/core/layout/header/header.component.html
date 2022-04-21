@@ -1,0 +1,24 @@
+<mat-toolbar>
+  <div class="toolbar-inner">
+    <a 
+    mat-stroked-button
+    color="primary"
+    routerLink="/"
+    routerLinkActive
+    #pho="routerLinkActive"
+    [routerLinkActiveOptions]="{ exact: true }"
+    [color]="pho.isActive ? 'accent' : ''"
+    >
+      Photos
+    </a>
+    <a 
+      mat-stroked-button
+      routerLink="/favourites" 
+      routerLinkActive
+      #fav="routerLinkActive"
+      [color]="fav.isActive ? 'accent' : ''"
+    >
+      Favourites
+    </a>
+  </div>
+</mat-toolbar>

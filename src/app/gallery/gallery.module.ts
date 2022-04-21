@@ -9,14 +9,14 @@ import { GalleryCardComponent } from './components/gallery-card/gallery-card.com
 import { GalleryItemComponent } from './components/gallery-item/gallery-item.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-
-
+import { GallaryFavouritesListComponent } from './components/gallary-favourites-list/gallary-favourites-list.component';
 
 @NgModule({
   declarations: [
     GalleryComponent,
     GalleryCardComponent,
-    GalleryItemComponent
+    GalleryItemComponent,
+    GallaryFavouritesListComponent
   ],
   providers: [
     GalleryDataStorageService,
