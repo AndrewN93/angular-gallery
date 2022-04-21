@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { GalleryModule } from './gallery/gallery.module';
 import { RouterModule } from '@angular/router';
+import { SpinnerModule } from './shared/spinner/spinner.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { RouterModule } from '@angular/router';
     BrowserAnimationsModule,
     RouterModule,
     AppRoutingModule,
-    GalleryModule
+    GalleryModule,
+    SpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

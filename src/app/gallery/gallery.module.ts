@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { GalleryRoutingModule } from './gallery-routing.module';
 import { GalleryComponent } from './components/gallery/gallery.component';
 import { GalleryDataStorageService } from './services/gallery-data-storage.service';
+import { SpinnerModule } from '../shared/spinner/spinner.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { GalleryDataStorageService } from './services/gallery-data-storage.servi
   ],
   imports: [
     CommonModule,
-    GalleryRoutingModule
+    GalleryRoutingModule,
+    SpinnerModule
   ]
 })
 export class GalleryModule { }

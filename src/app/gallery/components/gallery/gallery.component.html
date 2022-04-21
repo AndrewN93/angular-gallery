@@ -1,1 +1,17 @@
-<p>gallery works!</p>
+<div>
+  <ul>
+    <li *ngFor="let item of (loadedImages$ | async)">
+      <a routerLink=""></a>
+      <img [src]="item.imageUrl" alt="">
+      <p>{{ item.title }}</p>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="!(isLoading$ | async) else loadingBlock">
+  <button (click)="loadMore()">Load more...</button>
+</div>
+
+<ng-template #loadingBlock>
+  <app-spinner></app-spinner>
+</ng-template>
