@@ -8,42 +8,38 @@ import { GalleryDataStorageService } from './gallery-data-storage.service';
   providedIn: 'root'
 })
 export class GalleryService {
-  isLoading = new Subject();
-  isLoading$ = this.isLoading.asObservable();
-  isError = new Subject();
-  isError$ = this.isError.asObservable();
-  loadedImages = new BehaviorSubject<GalleryItem[]>([]);
+  private loadedImages = new BehaviorSubject<GalleryItem[]>([]);
+  
   loadedImages$ = this.loadedImages.asObservable();
-
-  page = 1;
+  page = 0;
   pageSize = 6;
-  // maxPages: number;
+  totalItems: number = 0;
 
   constructor(private galleryDataStorageService: GalleryDataStorageService) { }
 
-  loadMore() {
-    this.page++;
-    const allLoaded = this.loadedImages.getValue();
-    const start = allLoaded.length;
-    const end = allLoaded.length + this.pageSize;
+  loadMore(): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      this.page++;
+      const [start, end] = this.resolvePagingParams();
+      this.galleryDataStorageService.getGalleryImages(start, end)
+        .subscribe((result) => {
+          if (result instanceof AppResponseFailed) {
+            reject(result.errorMessage);
+            return;
+          }
 
-    this.isLoading.next(true);
-    this.galleryDataStorageService.getGalleryImages(start, end)
-      .subscribe((result) => {
-        if (result instanceof AppResponseFailed) {
-          this.isError.next('Something went wrong');
-          return;
-        }
-
-        if (result?.data?.length) {
-          this.loadedImages.next([...allLoaded, ...result.data]);
-        }
-        
-        this.isLoading.next(false);
-      });
-
-
+          if (result?.data?.length) {
+            this.loadedImages.next([...this.loadedImages.getValue(), ...result.data]);
+            resolve(false);
+            this.totalItems = result?.totalLength!;
+          }
+        });
+    })
   }
 
-
+  resolvePagingParams(): [number, number] {
+    const start = this.page * this.pageSize;
+    const end = start + this.pageSize;
+    return [start, end];
+  }
 }

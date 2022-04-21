@@ -9,17 +9,22 @@ import { GalleryItem } from '../../typings/gallery-item';
   styleUrls: ['./gallery.component.scss']
 })
 export class GalleryComponent implements OnInit {
-  isLoading$ = this.galleryService.isLoading$;
-  isError$ = this.galleryService.isError$;
+  isLoading: boolean = false;
+  error: string | null = null;
+
   loadedImages$: Observable<GalleryItem[]> = this.galleryService.loadedImages$;
 
   constructor(private galleryService: GalleryService) { }
 
   ngOnInit(): void {
-    this.loadMore();
+    this.loadMore()
   }
   
   loadMore() {
-    this.galleryService.loadMore();
+    this.isLoading = true;
+    this.error = null;
+    this.galleryService.loadMore()
+      .catch((errorMsg) => this.error = errorMsg)
+      .finally(() => this.isLoading = false);
   }
 }

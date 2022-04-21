@@ -8,9 +8,11 @@
   </ul>
 </div>
 
-<div *ngIf="!(isLoading$ | async) else loadingBlock">
+<div *ngIf="!isLoading; loadingBlock">
   <button (click)="loadMore()">Load more...</button>
 </div>
+
+<div *ngIf="error">{{ error }}</div>
 
 <ng-template #loadingBlock>
   <app-spinner></app-spinner>
