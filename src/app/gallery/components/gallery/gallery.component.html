@@ -1,18 +1,17 @@
-<div>
-  <ul>
-    <li *ngFor="let item of (loadedImages$ | async)">
-      <a routerLink=""></a>
-      <img [src]="item.imageUrl" alt="">
-      <p>{{ item.title }}</p>
-    </li>
-  </ul>
+<div class="gallery" *ngIf="(loadedImages$ | async) as loadedImages">
+  <app-gallery-card class="gallery-card" *ngFor="let item of loadedImages" [card]="item"></app-gallery-card>
+  <div class="no-results"
+    *ngIf="!loadedImages.length && !isLoading"
+  >
+    No results
+  </div>
 </div>
 
-<div *ngIf="!isLoading; loadingBlock">
+<div *ngIf="!isLoading else loadingBlock">
   <button (click)="loadMore()">Load more...</button>
 </div>
 
-<div *ngIf="error">{{ error }}</div>
+<div class="no-results" *ngIf="error && !isLoading">{{ error }}</div>
 
 <ng-template #loadingBlock>
   <app-spinner></app-spinner>

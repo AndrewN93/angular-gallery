@@ -1,0 +1,6 @@
+<mat-card class="gallery-card" [routerLink]="['photo', card.id]">
+  <mat-card-header>
+    <mat-card-title>{{card.title}}</mat-card-title>
+  </mat-card-header>
+  <img class="gallery-card-image" mat-card-image [src]="card.imageUrl" [alt]="card.title">
+</mat-card>

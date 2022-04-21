@@ -5,10 +5,18 @@ import { GalleryRoutingModule } from './gallery-routing.module';
 import { GalleryComponent } from './components/gallery/gallery.component';
 import { GalleryDataStorageService } from './services/gallery-data-storage.service';
 import { SpinnerModule } from '../shared/spinner/spinner.module';
+import { GalleryCardComponent } from './components/gallery-card/gallery-card.component';
+import { GalleryItemComponent } from './components/gallery-item/gallery-item.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+
+
 
 @NgModule({
   declarations: [
-    GalleryComponent
+    GalleryComponent,
+    GalleryCardComponent,
+    GalleryItemComponent
   ],
   providers: [
     GalleryDataStorageService,
@@ -16,7 +24,9 @@ import { SpinnerModule } from '../shared/spinner/spinner.module';
   imports: [
     CommonModule,
     GalleryRoutingModule,
-    SpinnerModule
+    SpinnerModule,
+    MatCardModule,
+    MatButtonModule,
   ]
 })
 export class GalleryModule { }

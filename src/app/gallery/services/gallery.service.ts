@@ -28,7 +28,7 @@ export class GalleryService {
             return;
           }
 
-          if (result?.data?.length) {
+          if (result?.data) {
             this.loadedImages.next([...this.loadedImages.getValue(), ...result.data]);
             resolve(false);
             this.totalItems = result?.totalLength!;
