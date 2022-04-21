@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { GalleryRoutingModule } from './gallery-routing.module';
 import { GalleryComponent } from './components/gallery/gallery.component';
-import { GalleryDataStorageService } from './services/gallery-data-storage.service';
 import { SpinnerModule } from '../shared/spinner/spinner.module';
 import { GalleryCardComponent } from './components/gallery-card/gallery-card.component';
 import { GalleryItemComponent } from './components/gallery-item/gallery-item.component';
@@ -17,9 +16,6 @@ import { GallaryFavouritesListComponent } from './components/gallary-favourites-
     GalleryCardComponent,
     GalleryItemComponent,
     GallaryFavouritesListComponent
-  ],
-  providers: [
-    GalleryDataStorageService,
   ],
   imports: [
     CommonModule,

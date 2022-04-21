@@ -6,12 +6,41 @@ import { generateGallaryItems } from '../utils/gallary.utils';
 
 export type AppGalleryResponse<T = GalleryItem> = AppResponseSuccess<T> | AppResponseFailed;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class GalleryDataStorageService {
-  galleryItemsStorage: GalleryItem[] = generateGallaryItems(100);
-
+  private readonly storageKey = '[App] Gallery'
+  galleryItemsStorage: GalleryItem[];
+  
   get galleryLength() {
     return this.galleryItemsStorage.length;
+  }
+
+  constructor() {
+    this.galleryItemsStorage = generateGallaryItems(100);
+
+    let favouritesIdsString = localStorage.getItem(this.storageKey);
+
+    if (!favouritesIdsString) return;
+
+    const favouritesIds = JSON.parse(favouritesIdsString);
+
+    if (Array.isArray(favouritesIds) && favouritesIds.length) {
+      this.galleryItemsStorage.forEach(item => {
+        if (favouritesIds.includes(item.id)) {
+          item.isFavourite = true;
+        }
+      })
+    }
+  }
+
+  persistFavourites() {
+    const keysArr: number[] = this.galleryItemsStorage.reduce((acc: number[], curr) => {
+      if (curr.isFavourite) {
+        acc.push(curr.id);
+      }
+      return acc;
+    }, []);
+    localStorage.setItem(this.storageKey, JSON.stringify(keysArr));
   }
 
   getRange(start: number, end: number): GalleryItem[] {
@@ -30,6 +59,27 @@ export class GalleryDataStorageService {
   getGalleryImage(id: number): Observable<AppGalleryResponse> {
     const image = this.galleryItemsStorage.find(item => item.id === id);
     const result = image ? new AppResponseSuccess(image) : new AppResponseFailed(`Not found with id - ${id}`);
+
+    return this.responseWithDelay(result);
+  }
+
+  getFavouriteImages() {
+    const response = this.galleryItemsStorage.filter(item => item.isFavourite);
+
+    return this.responseWithDelay(new AppResponseSuccess(response));
+  }
+
+  setFavouriteStatus(id: number) {
+    const candidate = this.galleryItemsStorage.find(item => item.id === id);
+    let result;
+
+    if (candidate) {
+      candidate.isFavourite = !candidate.isFavourite;
+      this.persistFavourites();
+      result = new AppResponseSuccess(true);
+    } else {
+      result = new AppResponseFailed('Image with ${id} does\'t exist');
+    }
 
     return this.responseWithDelay(result);
   }

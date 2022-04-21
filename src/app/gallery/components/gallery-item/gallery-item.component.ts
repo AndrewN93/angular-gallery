@@ -13,6 +13,7 @@ import { GalleryItem } from '../../typings/gallery-item';
 export class GalleryItemComponent implements OnInit, OnDestroy {
   isError = false;
   isLoading = false;
+  isSubmitting = false;
   currentItem: GalleryItem | undefined;
   destroy$ = new Subject<void>();
 
@@ -45,6 +46,8 @@ export class GalleryItemComponent implements OnInit, OnDestroy {
   }
   
   updateFavouriteStatus(id: number) {
-    throw new Error('Method not implemented.');
+    this.galleryDataStorageService.setFavouriteStatus(id).subscribe(() => {
+      this.isSubmitting = false;
+    });
   }
 }

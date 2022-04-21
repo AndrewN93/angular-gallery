@@ -1,1 +1,12 @@
-<p>gallary-favourites-list works!</p>
+<div>
+  <ul>
+    <app-gallery-card *ngFor="let item of loadedImages" [card]="item"></app-gallery-card>
+  </ul>
+</div>
+
+<div *ngIf="!loadedImages.length && !errorMessage">Nothing to be here</div>
+<div *ngIf="errorMessage">{{ errorMessage }}</div>
+
+<ng-template #loadingBlock>
+  loading...
+</ng-template>
