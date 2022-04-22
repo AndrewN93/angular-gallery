@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { GalleryService } from '../../services/gallery.service';
 import { GalleryItem } from '../../typings/gallery-item';
 
@@ -13,6 +13,7 @@ export class GalleryComponent implements OnInit {
   error: string | null = null;
 
   loadedImages$: Observable<GalleryItem[]> = this.galleryService.loadedImages$;
+  isTotalItemsReached$: Observable<boolean> = this.galleryService.isTotalItemsReached$;
 
   constructor(private galleryService: GalleryService) { }
 

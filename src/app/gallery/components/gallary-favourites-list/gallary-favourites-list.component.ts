@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { AppResponseSuccess } from 'src/app/core/typings/app-api.types';
 import { GalleryDataStorageService } from '../../services/gallery-data-storage.service';
-import { GalleryService } from '../../services/gallery.service';
 import { GalleryItem } from '../../typings/gallery-item';
 
 @Component({
@@ -16,6 +14,10 @@ export class GallaryFavouritesListComponent implements OnInit {
   errorMessage: string = '';
 
   constructor(private galleryDataStorageService: GalleryDataStorageService) { }
+
+  get isEmpty() {
+    return !this.loadedImages.length && !this.errorMessage && !this.isLoading;
+  }
   
   ngOnInit() {
     this.isLoading = true;

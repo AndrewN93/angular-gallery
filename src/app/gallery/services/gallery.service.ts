@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { AppResponseFailed } from 'src/app/core/typings/app-api.types';
 import { GalleryItem } from '../typings/gallery-item';
 import { GalleryDataStorageService } from './gallery-data-storage.service';
@@ -9,17 +9,17 @@ import { GalleryDataStorageService } from './gallery-data-storage.service';
 })
 export class GalleryService {
   private loadedImages = new BehaviorSubject<GalleryItem[]>([]);
+  private isTotalItemsReached = new BehaviorSubject<boolean>(false);
   
+  isTotalItemsReached$ = this.isTotalItemsReached.asObservable();
   loadedImages$ = this.loadedImages.asObservable();
   page = 0;
   pageSize = 6;
-  totalItems: number = 0;
 
   constructor(private galleryDataStorageService: GalleryDataStorageService) { }
 
-  loadMore(): Promise<boolean> {
+  loadMore(): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.page++;
       const [start, end] = this.resolvePagingParams();
       this.galleryDataStorageService.getGalleryImages(start, end)
         .subscribe((result) => {
@@ -29,9 +29,11 @@ export class GalleryService {
           }
 
           if (result?.data) {
-            this.loadedImages.next([...this.loadedImages.getValue(), ...result.data]);
-            resolve(false);
-            this.totalItems = result?.totalLength!;
+            const allLoaded = [...this.loadedImages.getValue(), ...result.data]
+            this.loadedImages.next(allLoaded);
+            this.isTotalItemsReached.next(result?.totalLength! === allLoaded.length);
+            this.page++;
+            resolve();
           }
         });
     })

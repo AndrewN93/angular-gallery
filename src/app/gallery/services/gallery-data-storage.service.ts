@@ -16,7 +16,7 @@ export class GalleryDataStorageService {
   }
 
   constructor() {
-    this.galleryItemsStorage = generateGallaryItems(100);
+    this.galleryItemsStorage = generateGallaryItems(36);
 
     let favouritesIdsString = localStorage.getItem(this.storageKey);
 
@@ -85,6 +85,8 @@ export class GalleryDataStorageService {
   }
 
   responseWithDelay<T>(response: T): Observable<T> {
-    return of(response).pipe(delay(3000));
+    // a random delay of 200-500ms. 
+    const randomDelay = 200 + Math.floor(Math.random() * 300);
+    return of(response).pipe(delay(randomDelay));
   }
 }

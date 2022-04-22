@@ -1,7 +1,8 @@
 <div 
   class="gallery"
   appInfiniteScroll
-  (scrolled)="loadMore()"
+  [appInfiniteScrollDisabled]="!!(isTotalItemsReached$ | async)"
+  (scrolled)="isLoading || loadMore()"
   *ngIf="(loadedImages$ | async) as loadedImages"
 >
   <a class="gallery-card" *ngFor="let item of loadedImages" [routerLink]="['photo', item.id]">
@@ -13,7 +14,5 @@
     No results
   </div>
 </div>
-
 <div class="no-results" *ngIf="error && !isLoading">{{ error }}</div>
-
 <app-spinner *ngIf="isLoading"></app-spinner>
