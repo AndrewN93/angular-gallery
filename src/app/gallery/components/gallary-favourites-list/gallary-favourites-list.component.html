@@ -1,12 +1,14 @@
 <div>
   <ul>
-    <app-gallery-card *ngFor="let item of loadedImages" [card]="item"></app-gallery-card>
+    <a class="gallery-favourite-card" *ngFor="let item of loadedImages" [routerLink]="['../photo', item.id]">
+      <app-gallery-card [card]="item"></app-gallery-card>
+    </a>
   </ul>
 </div>
 
-<div *ngIf="!loadedImages.length && !errorMessage">Nothing to be here</div>
-<div *ngIf="errorMessage">{{ errorMessage }}</div>
+<div class="no-results" *ngIf="!loadedImages.length && !errorMessage">Nothing to be here</div>
+<div class="no-results" *ngIf="errorMessage">{{ errorMessage }}</div>
 
 <ng-template #loadingBlock>
-  loading...
+  <app-spinner></app-spinner>
 </ng-template>

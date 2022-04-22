@@ -7,6 +7,7 @@
 .gallery-card {
   width: 32%;
   padding: 0.5%;
+  text-decoration: none;
   @media screen and (max-width: 1024px) {
     width: 44%;
     padding: 3%;
@@ -15,10 +16,4 @@
     width: 100%;
     padding: 10px 0;
   }
-}
-
-.no-results {
-  width: 100%;
-  margin-top: 30px;
-  text-align: center;
 }
