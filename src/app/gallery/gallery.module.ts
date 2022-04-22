@@ -9,6 +9,7 @@ import { GalleryItemComponent } from './components/gallery-item/gallery-item.com
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { GallaryFavouritesListComponent } from './components/gallary-favourites-list/gallary-favourites-list.component';
+import { InfiniteScrollModule } from '../shared/infinite-scroll/infinite-scroll.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { GallaryFavouritesListComponent } from './components/gallary-favourites-
     SpinnerModule,
     MatCardModule,
     MatButtonModule,
+    InfiniteScrollModule,
   ]
 })
 export class GalleryModule { }

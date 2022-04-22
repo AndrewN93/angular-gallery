@@ -1,4 +1,9 @@
-<div class="gallery" *ngIf="(loadedImages$ | async) as loadedImages">
+<div 
+  class="gallery"
+  appInfiniteScroll
+  (scrolled)="loadMore()"
+  *ngIf="(loadedImages$ | async) as loadedImages"
+>
   <a class="gallery-card" *ngFor="let item of loadedImages" [routerLink]="['photo', item.id]">
     <app-gallery-card [card]="item"></app-gallery-card>
   </a>
@@ -9,12 +14,6 @@
   </div>
 </div>
 
-<div *ngIf="!isLoading else loadingBlock">
-  <button (click)="loadMore()">Load more...</button>
-</div>
-
 <div class="no-results" *ngIf="error && !isLoading">{{ error }}</div>
 
-<ng-template #loadingBlock>
-  <app-spinner></app-spinner>
-</ng-template>
+<app-spinner *ngIf="isLoading"></app-spinner>
