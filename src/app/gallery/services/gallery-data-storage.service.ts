@@ -8,7 +8,7 @@ export type AppGalleryResponse<T = GalleryItem> = AppResponseSuccess<T> | AppRes
 
 @Injectable({ providedIn: 'root' })
 export class GalleryDataStorageService {
-  private readonly storageKey = '[App] Gallery'
+  public readonly storageKey = '[App] Gallery'
   galleryItemsStorage: GalleryItem[];
   
   get galleryLength() {
