@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppResponseSuccess } from 'src/app/core/typings/app-api.types';
+import { AppResponseFailed, AppResponseSuccess } from 'src/app/core/typings/app-api.types';
 import { GalleryDataStorageService } from '../../services/gallery-data-storage.service';
 import { GalleryItem } from '../../typings/gallery-item';
 
@@ -22,6 +22,11 @@ export class GallaryFavouritesListComponent implements OnInit {
   ngOnInit() {
     this.isLoading = true;
     this.galleryDataStorageService.getFavouriteImages().subscribe(response => {
+
+      if (response instanceof AppResponseFailed) {
+        this.errorMessage = 'Something went wrong';
+      }
+
       if (response instanceof AppResponseSuccess) {
         this.loadedImages = response.data;
       }

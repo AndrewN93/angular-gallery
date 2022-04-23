@@ -7,6 +7,6 @@
 </div>
 
 <div class="no-results" *ngIf="isEmpty">Nothing to be here</div>
-<div class="no-results" *ngIf="errorMessage">{{ errorMessage }}</div>
+<div class="error-block" *ngIf="errorMessage">{{ errorMessage }}</div>
 
 <app-spinner *ngIf="isLoading"></app-spinner>
