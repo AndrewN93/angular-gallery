@@ -1,0 +1,19 @@
+<ng-container *ngIf="!isLoading; else loadingBlock">
+  <ng-container *ngIf="currentItem">
+    <mat-card class="gallery-item">
+      <img class="gallery-item-image" mat-card-image [src]="currentItem.imageUrl" [alt]="currentItem.title">
+      <mat-card-content>{{currentItem.title}}</mat-card-content>
+    </mat-card>
+    <div class="gallery-item-actions">
+      <button mat-flat-button color="accent" (click)="updateFavouriteStatus(currentItem.id)">
+        {{ currentItem.isFavourite ? 'Remove from favourites' : 'Add to favourites' }}
+      </button>
+    </div>
+  </ng-container>
+</ng-container>
+
+<div class="no-results" *ngIf="isError">Something went wrong, please <a routerLink="/">go back to main page!</a>...</div>
+
+<ng-template #loadingBlock>
+  <app-spinner></app-spinner>
+</ng-template>

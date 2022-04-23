@@ -1,0 +1,20 @@
+.gallery-card {
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  outline: none;
+  position: relative;
+  &:hover {
+    background-color: #f1f1f1;
+    transition: 200ms;
+    img {
+      opacity: 0.9;
+    }
+  }
+}
+
+.gallery-card-image {
+  object-fit: cover;
+  height: 300px;
+}

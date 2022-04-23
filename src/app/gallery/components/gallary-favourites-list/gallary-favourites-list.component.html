@@ -1,0 +1,12 @@
+<div class="gallery-favourite">
+  <ul>
+    <a class="gallery-favourite-card" *ngFor="let item of loadedImages" [routerLink]="['../photo', item.id]">
+      <app-gallery-card [card]="item"></app-gallery-card>
+    </a>
+  </ul>
+</div>
+
+<div class="no-results" *ngIf="isEmpty">Nothing to be here</div>
+<div class="error-block" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+<app-spinner *ngIf="isLoading"></app-spinner>
